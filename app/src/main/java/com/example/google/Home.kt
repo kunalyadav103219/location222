@@ -16,6 +16,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -138,6 +139,7 @@ class Home : AppCompatActivity() {
         adView.headlineView = adView.findViewById(R.id.ad_headline)
         (adView.headlineView as TextView).text = nativeAd.headline
 
+
         adView.setNativeAd(nativeAd)
     }
 
@@ -195,13 +197,31 @@ class Home : AppCompatActivity() {
         }
     }
     private fun shareCoordinates() {
-        val coordinates = tvCoordinates.text.toString()
-        val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type = "text/plain"
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out my location: $global")
-        shareIntent.`package` = "com.whatsapp" // Specify WhatsApp package
-        startActivity(Intent.createChooser(shareIntent, "Share using"))
-    }
+
+            val coordinates = tvCoordinates.text.toString()
+            val latRegex = Regex("Lat: ([-+]?[0-9]*\\.?[0-9]+)")
+            val lonRegex = Regex("Long: ([-+]?[0-9]*\\.?[0-9]+)")
+
+            val latMatch = latRegex.find(coordinates)
+            val lonMatch = lonRegex.find(coordinates)
+
+            val lat = latMatch?.groupValues?.getOrNull(1)
+            val lon = lonMatch?.groupValues?.getOrNull(1)
+
+            if (!lat.isNullOrBlank() && !lon.isNullOrBlank()) {
+               val gbal = "https://www.google.com/maps?q=$lat,$lon"
+                val shareIntent = Intent(Intent.ACTION_SEND)
+                shareIntent.type = "text/plain"
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out my location: $gbal")
+                shareIntent.`package` = "com.whatsapp" // Specify WhatsApp package
+                startActivity(Intent.createChooser(shareIntent, "Share using"))
+            }
+        else  Toast.makeText(this,"Cheak your Internet connection",Toast.LENGTH_LONG).show()
+        }
+
+
+
+
 
     private fun hasLocationPermission(): Boolean {
         return ActivityCompat.checkSelfPermission(
