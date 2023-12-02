@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        >
+        <Button
+            android:layout_marginStart="5dp"
+            android:id="@+id/btnShare"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Share" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <Button
+                android:layout_gravity="end"
+                android:id="@+id/btnOpenMap"
+                android:layout_marginEnd="5dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/btnShare"
+                android:text="Open in Map" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+    <FrameLayout
+        android:id="@+id/nativeAdContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_100sdp"
+        android:layout_marginBottom="326dp">
+
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tvCoordinates"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:text="Current Coordinates: Loading..." />
+
+
+</RelativeLayout>
